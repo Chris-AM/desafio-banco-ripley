@@ -1,0 +1,42 @@
+{
+  "name": "desafio-banco-ripley-backend",
+  "version": "0.1.0",
+  "description": "backend constara de con las siguientes colecciones: new_receive: nuevo destinatario, account: tipo de cuenta, tranfers: tendra referencia al destinatario y el monto",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chris-AM/desafio-banco-ripley.git"
+  },
+  "keywords": [
+    "mern",
+    "banco",
+    "ripley",
+    "angular",
+    "mongodb",
+    "mongoose",
+    "desafio",
+    "prueba",
+    "tecnica",
+    "backend",
+    "fullstack"
+  ],
+  "author": "Chris-AM",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Chris-AM/desafio-banco-ripley/issues"
+  },
+  "homepage": "https://github.com/Chris-AM/desafio-banco-ripley#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.13.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.12",
+    "uuid": "^8.3.2"
+  }
+}
