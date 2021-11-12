@@ -9,18 +9,22 @@ export class LinksService {
   private links: Links[] = [{
     name: 'Nuevo destinatario',
     description: 'Crea y guarda un nuevo destinatario',
+    url: '/dashboard/nuevo-destinatario',
   },
   {
     name: 'Trasferir',
     description: 'Trasferir un destinatario registrado',
+    url: '/dashboard/nueva-transferencia',
   },
   {
     name: 'Lista de destinatarios',
     description: 'Lista de destinatarios registrados',
+    url: '/dashboard/destinatarios',
   },
   {
     name: 'Lista de envíos',
     description: 'Lista el historial de envíos realizados',
+    url: '/dashboard/historial',
   }
   ]
 
