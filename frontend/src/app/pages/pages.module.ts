@@ -7,11 +7,11 @@ import { HistoryComponent } from './history/history.component';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SharedModule } from '../shared/shared.module';
-import { FormsModule } from '@angular/forms';
 import { PagesComponent } from './pages.component';
 import { ReceiptsComponent } from './receipts/receipts.component';
 import { LinksComponent } from './links/links.component';
 import { LinksService } from './links/links.service';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   schemas: [
@@ -38,8 +38,8 @@ import { LinksService } from './links/links.service';
     CommonModule,
     RouterModule,
     FlexLayoutModule,
+    ReactiveFormsModule,
     SharedModule,
-    FormsModule
   ],
   providers: [
     LinksService
