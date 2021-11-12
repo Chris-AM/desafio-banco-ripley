@@ -29,7 +29,7 @@ export class LinksService {
   ]
 
   constructor() { 
-    console.log('LinksService constructor');
+   
   }
 
   getLinks(): Links[] {

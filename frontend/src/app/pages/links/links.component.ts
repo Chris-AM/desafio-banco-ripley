@@ -13,6 +13,5 @@ export class LinksComponent implements OnInit {
 
   ngOnInit(): void {
     this.links = this.linksService.getLinks();
-    console.log('links', this.links);
   }
 }
