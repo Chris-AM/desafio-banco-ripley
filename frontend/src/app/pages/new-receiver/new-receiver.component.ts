@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 import { MESSAGES } from 'src/app/shared/constants/messages';
+import { BankList } from 'src/app/shared/interfaces/bankListInterface';
+import { BanksListService } from './banks-list.service';
 @Component({
   selector: 'app-new-receiver',
   templateUrl: './new-receiver.component.html',
-  styleUrls: ['./new-receiver.component.scss']
+  styleUrls: ['./new-receiver.component.scss'],
 })
 export class NewReceiverComponent implements OnInit {
-
-  
+ //messages
   public title: string = '';
   public name: string = '';
   public mail: string = '';
@@ -19,10 +21,28 @@ export class NewReceiverComponent implements OnInit {
   public phone: string = '';
   public accept: string = '';
 
-  constructor() { }
+  // list of banks
+  public banksList: any[] = [];
+
+  // form
+  newReceiver = new FormGroup({
+    receiverRut: new FormControl(''),
+    receiverMail: new FormControl(''),
+    receiverBank: new FormControl(''),
+    receiverAccount: new FormControl(''),
+    receiverName: new FormControl(''),
+    receiverPhone: new FormControl(''),
+    receiverType: new FormControl(''),
+  });
+
+  constructor(
+    private _banksList: BanksListService
+  ) {}
+
 
   ngOnInit(): void {
     this.getMessages();
+    this.getBanks();
   }
 
   public getMessages() {
@@ -36,5 +56,11 @@ export class NewReceiverComponent implements OnInit {
     this.phone = _.get(MESSAGES, 'NEW_RECEIVER.PHONE');
     this.accept = _.get(MESSAGES, 'NEW_RECEIVER.ACCEPT');
   }
-  
+
+  public getBanks() {
+    this._banksList.getBanksList()
+      .subscribe((data:any) => {
+        this.banksList = data.banks;
+      })
+  };
 }

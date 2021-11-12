@@ -1,37 +1,30 @@
 <h2>{{title}}</h2>
-<form>
+<form [formGroup]="newReceiver">
     <div class="form-container">
         <div class="column">
-            <p>
-                {{rut}}
-                <input type="text" class="form-control">
-            </p>
-            <p>
-                {{mail}}
-                <input type="text" class="form-control">
-            </p>
-            <p>
-                {{bank}}
-                <input type="text" class="form-control">
-            </p>
-            <p>
-                {{account}}
-                <input type="text" class="form-control">
-            </p>
+            <p> {{rut}} </p>
+            <input type="text" class="form-control" formControlName="receiverRut">
+            <p>{{mail}} </p>
+            <input type="text" class="form-control" formControlName="receiverMail">
+            <p>{{bank}}</p>
+            <select type="text" class="form-control" formControlName="receiverBank">
+                <option value="">Seleccione un banco</option>
+                <option *ngFor="let bank of banksList" [value]="bank.name">{{bank.name}}</option>
+            </select>
+            <p>{{account}}</p>
+            <input type="text" class="form-control" formControlName="receiverAccount">
         </div>
         <div class="column">
-            <p>
-                {{name}}
-                <input type="text" class="form-control">
-            </p>
-            <p>
-                {{phone}}
-                <input type="text" class="form-control">
-            </p>
-            <p>
-                {{type}}
-                <input type="text" class="form-control">
-            </p>
+            <p> {{name}}</p>
+            <input type="text" class="form-control" formControlName="receiverName">
+            <p>{{phone}}</p>
+            <input type="text" class="form-control" formControlName="receiverPhone">
+            <p>{{type}}</p>
+            <select class="form-control" formControlName="receiverType">
+                <option value="1">{{type}}</option>
+                <option value="2">{{type}}</option>
+                <option value="3">{{type}}</option>
+            </select>
         </div>
     </div>
 </form>
