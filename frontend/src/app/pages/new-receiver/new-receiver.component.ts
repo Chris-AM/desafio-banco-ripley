@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 import { MESSAGES } from 'src/app/shared/constants/messages';
 import { AccountList } from 'src/app/shared/interfaces/accountListInterface';
@@ -31,13 +31,13 @@ export class NewReceiverComponent implements OnInit {
 
   // form
   newReceiver = new FormGroup({
-    receiverRut: new FormControl(''),
-    receiverMail: new FormControl(''),
-    receiverBank: new FormControl(''),
-    receiverAccount: new FormControl(''),
-    receiverName: new FormControl(''),
-    receiverPhone: new FormControl(''),
-    receiverType: new FormControl(''),
+    receiverRut: new FormControl('', Validators.required),
+    receiverMail: new FormControl('',[ Validators.required, Validators.email]),
+    receiverBank: new FormControl(this.banksList[0], Validators.required),
+    receiverAccount: new FormControl(this.accountsList[0], Validators.required),
+    receiverName: new FormControl('', Validators.required),
+    receiverPhone: new FormControl('', Validators.required),
+    receiverType: new FormControl('', Validators.required),
   });
 
   constructor(
