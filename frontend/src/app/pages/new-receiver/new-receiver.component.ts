@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import * as _ from 'lodash';
 import { MESSAGES } from 'src/app/shared/constants/messages';
+import { AccountList } from 'src/app/shared/interfaces/accountListInterface';
 import { BankList } from 'src/app/shared/interfaces/bankListInterface';
+import { AccountsListService } from './accounts-list.service';
 import { BanksListService } from './banks-list.service';
 @Component({
   selector: 'app-new-receiver',
@@ -24,6 +26,9 @@ export class NewReceiverComponent implements OnInit {
   // list of banks
   public banksList: any[] = [];
 
+  //list of accounts
+  public accountsList: AccountList[] = [];
+
   // form
   newReceiver = new FormGroup({
     receiverRut: new FormControl(''),
@@ -36,13 +41,15 @@ export class NewReceiverComponent implements OnInit {
   });
 
   constructor(
-    private _banksList: BanksListService
-  ) {}
+    private _banksList: BanksListService,
+    private _accountList: AccountsListService,
+  ) { }
 
 
   ngOnInit(): void {
     this.getMessages();
     this.getBanks();
+    this.getAccounts();
   }
 
   public getMessages() {
@@ -63,4 +70,8 @@ export class NewReceiverComponent implements OnInit {
         this.banksList = data.banks;
       })
   };
+
+  public getAccounts() {
+    this.accountsList = this._accountList.getAccounts()
+  }
 }

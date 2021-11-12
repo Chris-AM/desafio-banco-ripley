@@ -21,9 +21,8 @@
             <input type="text" class="form-control" formControlName="receiverPhone">
             <p>{{type}}</p>
             <select class="form-control" formControlName="receiverType">
-                <option value="1">{{type}}</option>
-                <option value="2">{{type}}</option>
-                <option value="3">{{type}}</option>
+                <option value="">Seleccione un tipo</option>
+                <option *ngFor="let type of accountsList" [value]="type.accountName">{{type.accountName}}</option>
             </select>
         </div>
     </div>
