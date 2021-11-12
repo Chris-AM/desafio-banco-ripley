@@ -33,7 +33,8 @@ export const MESSAGES = {
         TYPE: 'Tipo de cuenta',
         RUT: 'RUT',
         ACCOUNT: 'Número de cuenta',
-        ACCEPT: 'Crear'
+        PHONE: 'Teléfono',
+        ACCEPT: 'Crear',
     },
     HISTORY:{
         TITLE: 'Historial',
