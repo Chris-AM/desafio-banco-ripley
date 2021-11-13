@@ -53,15 +53,15 @@ export class NewReceiverComponent implements OnInit {
   }
 
   public getMessages() {
-    this.title = _.get(MESSAGES, 'NEW_RECEIVER.TITLE');
-    this.name = _.get(MESSAGES, 'NEW_RECEIVER.NAME');
-    this.mail = _.get(MESSAGES, 'NEW_RECEIVER.MAIL');
-    this.bank = _.get(MESSAGES, 'NEW_RECEIVER.BANK');
-    this.type = _.get(MESSAGES, 'NEW_RECEIVER.TYPE');
-    this.rut = _.get(MESSAGES, 'NEW_RECEIVER.RUT');
-    this.account = _.get(MESSAGES, 'NEW_RECEIVER.ACCOUNT');
-    this.phone = _.get(MESSAGES, 'NEW_RECEIVER.PHONE');
-    this.accept = _.get(MESSAGES, 'NEW_RECEIVER.ACCEPT');
+    this.title = _.get(MESSAGES, 'RECEIVER.TITLE');
+    this.name = _.get(MESSAGES, 'RECEIVER.NAME');
+    this.mail = _.get(MESSAGES, 'RECEIVER.MAIL');
+    this.bank = _.get(MESSAGES, 'RECEIVER.BANK');
+    this.type = _.get(MESSAGES, 'RECEIVER.TYPE');
+    this.rut = _.get(MESSAGES, 'RECEIVER.RUT');
+    this.account = _.get(MESSAGES, 'RECEIVER.ACCOUNT');
+    this.phone = _.get(MESSAGES, 'RECEIVER.PHONE');
+    this.accept = _.get(MESSAGES, 'RECEIVER.ACCEPT');
   }
 
   public getBanks() {
