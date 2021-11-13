@@ -47,6 +47,25 @@ const getReceivers = async (req = request, res = response) => {
     }
 }
 
+const getReceiver = async (req = request, res = response) => {
+    const { _id } = req.params;
+    try {
+        const receiver = await Receiver.findById(_id)
+            .populate('account_type', 'account_type');
+        res.json({
+            ok: true,
+            msg: 'Receiver retrieved successfully',
+            receiver
+        });
+    } catch (error) {
+        console.log('error ==> ', error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Internal server error, check logs'
+        });
+    }
+}
+
 const updateReceiver = async (req = request, res = response) => {
     const id = req.params.id;
     const { rut } = req.body;
@@ -103,6 +122,7 @@ const deleteReceiver = async (req = request, res = response) => {
 module.exports = {
     createReceiver,
     getReceivers,
+    getReceiver,
     updateReceiver,
     deleteReceiver
 }
