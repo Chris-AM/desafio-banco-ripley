@@ -1,19 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 import { MESSAGES } from 'src/app/shared/constants/messages';
 import { AccountsListService } from '../../services/accounts-list.service';
 import { BanksListService } from '../../services//banks-list.service';
 import { ReceiptsService } from 'src/app/services/receipts.service';
+import { UnsubscribeHelper } from '../../shared/unsubscribe.helper';
+
 @Component({
   selector: 'app-new-receiver',
   templateUrl: './new-receiver.component.html',
   styleUrls: ['./new-receiver.component.scss'],
 })
-export class NewReceiverComponent implements OnInit {
+export class NewReceiverComponent extends UnsubscribeHelper implements OnInit, OnDestroy {
   //messages
   public title: string = '';
   public name: string = '';
@@ -48,8 +47,11 @@ export class NewReceiverComponent implements OnInit {
     private fb: FormBuilder,
     private _banksList: BanksListService,
     private _accountList: AccountsListService,
-    private _receiverService: ReceiptsService
-  ) {}
+    private _receiverService: ReceiptsService,
+    
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getMessages();
@@ -86,15 +88,15 @@ export class NewReceiverComponent implements OnInit {
 
   public createReceiver() {
     this.isFormSubmited = true;
-    if(this.newReceiver.invalid){
+    if (this.newReceiver.invalid) {
       return;
     }
-    this._receiverService.createReceipt(this.newReceiver.value)
-      .subscribe(resp => {
+    this._receiverService
+      .createReceipt(this.newReceiver.value)
+      .subscribe((resp) => {
         console.log('respuesta ->', resp);
-      })
+      });
   }
-
 
   //VALIDATIONS
   invalidFields(): boolean {
