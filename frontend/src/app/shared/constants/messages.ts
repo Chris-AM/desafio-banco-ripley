@@ -25,8 +25,9 @@ export const MESSAGES = {
         MOUNT: 'Monto',
         ACCEPT: 'Transferir'
     },
-    NEW_RECEIVER:{
+    RECEIVER:{
         TITLE: 'Nuevo Destinatario',
+        RECEIVERS: 'Destinatarios',
         NAME: 'Nombre',
         MAIL: 'Correo',
         BANK: 'Banco',
