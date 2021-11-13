@@ -1,48 +1,53 @@
 <h2>{{title}}</h2>
-<form [formGroup]="newReceiver">
+<form (ngSubmit)="createReceiver()" [formGroup]="newReceiver">
     <div class="form-container">
         <div class="column">
             <p> {{rut}} </p>
             <input
                 [class.is-invalid]="newReceiver.get('receiverRut')?.touched && newReceiver.get('receiverRut')?.invalid"
-                type="text" class="form-control" formControlName="receiverRut">
+                type="text" class="form-control" formControlName="rut">
             <p>{{mail}} </p>
             <input
                 [class.is-invalid]="newReceiver.get('receiverMail')?.touched && newReceiver.get('receiverMail')?.invalid"
-                type="text" class="form-control" formControlName="receiverMail">
+                type="text" class="form-control" formControlName="mail">
             <p>{{bank}}</p>
             <select
             [class.is-invalid]="newReceiver.get('receiverBank')?.touched && newReceiver.get('receiverBank')?.invalid"
-            type="text" class="form-control" formControlName="receiverBank">
+            type="text" class="form-control" formControlName="bank">
                 <option value="">Seleccione un banco</option>
                 <option *ngFor="let bank of banksList" [value]="bank.name">{{bank.name}}</option>
             </select>
             <p>{{account}}</p>
             <input
             [class.is-invalid]="newReceiver.get('receiverAccount')?.touched && newReceiver.get('receiverAccount')?.invalid"
-            type="text" class="form-control" formControlName="receiverAccount">
+            type="text" class="form-control" formControlName="account_number">
         </div>
         <div class="column">
             <p> {{name}}</p>
             <input
             [class.is-invalid]="newReceiver.get('receiverName')?.touched && newReceiver.get('receiverName')?.invalid"
-            type="text" class="form-control" formControlName="receiverName">
+            type="text" class="form-control" formControlName="name">
             <p>{{phone}}</p>
             <input
             [class.is-invalid]="newReceiver.get('receiverPhone')?.touched && newReceiver.get('receiverPhone')?.invalid"
-            type="text" class="form-control" formControlName="receiverPhone">
+            type="text" class="form-control" formControlName="phone">
             <p>{{type}}</p>
             <select
             [class.is-invalid]="newReceiver.get('receiverType')?.touched && newReceiver.get('receiverType')?.invalid"
-            class="form-control" formControlName="receiverType">
+            class="form-control" formControlName="account_type">
                 <option value="">Seleccione un tipo</option>
-                <option *ngFor="let type of accountsList" [value]="type.account_type">{{type.account_type}}</option>
+                <option *ngFor="let type of accountsList" [value]="type._id">{{type.account_type}}</option>
             </select>
         </div>
     </div>
+    <div class="row mt-5">
+        <div class="col text-danger">
+            <p *ngIf="invalidFields()">TODOS LOS CAMPOS SON OBLIGARTORIOS</p>
+        </div>
+    </div>
+    <div class="button-container">
+        <button  class="btn btn-primary btn-lg">
+            {{accept}}
+        </button>
+    </div>
 </form>
-<div class="button-container">
-    <button class="btn btn-primary btn-lg">
-        {{accept}}
-    </button>
-</div>

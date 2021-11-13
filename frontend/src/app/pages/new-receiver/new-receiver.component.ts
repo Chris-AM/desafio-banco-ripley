@@ -1,18 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import * as _ from 'lodash';
 import { MESSAGES } from 'src/app/shared/constants/messages';
-import { AccountList } from 'src/app/shared/interfaces/accountListInterface';
-import { BankList } from 'src/app/shared/interfaces/bankListInterface';
-import { AccountsListService } from './accounts-list.service';
-import { BanksListService } from './banks-list.service';
+import { AccountsListService } from '../../services/accounts-list.service';
+import { BanksListService } from '../../services//banks-list.service';
+import { ReceiptsService } from 'src/app/services/receipts.service';
+import { Receipts } from 'src/app/shared/interfaces/receiptsInterface';
 @Component({
   selector: 'app-new-receiver',
   templateUrl: './new-receiver.component.html',
   styleUrls: ['./new-receiver.component.scss'],
 })
 export class NewReceiverComponent implements OnInit {
- //messages
+  //messages
   public title: string = '';
   public name: string = '';
   public mail: string = '';
@@ -27,29 +32,33 @@ export class NewReceiverComponent implements OnInit {
   public banksList: any[] = [];
 
   //list of accounts
-  public accountsList:any[] = [];
+  public accountsList: any[] = [];
 
   // form
-  newReceiver = new FormGroup({
-    receiverRut: new FormControl('', Validators.required),
-    receiverMail: new FormControl('',[ Validators.required, Validators.email]),
-    receiverBank: new FormControl(this.banksList[0], Validators.required),
-    receiverAccount: new FormControl(this.accountsList[0], Validators.required),
-    receiverName: new FormControl('', Validators.required),
-    receiverPhone: new FormControl('', Validators.required),
-    receiverType: new FormControl('', Validators.required),
+  newReceiver = this.fb.group({
+    rut: ['', Validators.required],
+    mail: ['', [Validators.required, Validators.email]],
+    bank: [this.banksList[0], Validators.required],
+    account_number: ['', Validators.required],
+    name: ['', Validators.required],
+    phone: ['', Validators.required],
+    account_type: [this.accountsList[0], Validators.required],
   });
 
+  public isFormSubmited: boolean = false;
+
   constructor(
+    private fb: FormBuilder,
     private _banksList: BanksListService,
     private _accountList: AccountsListService,
-  ) { }
-
+    private _receiverService: ReceiptsService
+  ) {}
 
   ngOnInit(): void {
     this.getMessages();
     this.getBanks();
     this.getAccounts();
+    //this.createReceiver();
   }
 
   public getMessages() {
@@ -64,18 +73,38 @@ export class NewReceiverComponent implements OnInit {
     this.accept = _.get(MESSAGES, 'RECEIVER.ACCEPT');
   }
 
+  //CRUD METHODS
   public getBanks() {
-    this._banksList.getBanksList()
-      .subscribe((data:any) => {
-        this.banksList = data.banks;
-      })
-  };
+    this._banksList.getBanksList().subscribe((data: any) => {
+      this.banksList = data.banks;
+    });
+  }
 
   public getAccounts() {
-   this._accountList.getAccounts()
-    .subscribe((data:any) => {
+    this._accountList.getAccounts().subscribe((data: any) => {
       this.accountsList = data.accounts;
       console.log('account lista ->', this.accountsList);
-    } );
+    });
+  }
+
+  public createReceiver() {
+    this.isFormSubmited = true;
+    if(this.newReceiver.invalid){
+      return;
+    }
+    this._receiverService.createReceipt(this.newReceiver.value)
+      .subscribe(resp => {
+        console.log('respuesta ->', resp);
+      })
+  }
+
+
+  //VALIDATIONS
+  invalidFields(): boolean {
+    if (this.newReceiver.invalid && this.isFormSubmited) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
