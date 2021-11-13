@@ -7,7 +7,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { ReceiverFormComponent } from './components/receiver-form/receiver-form.component';
 
 @NgModule({
   schemas: [
@@ -17,7 +16,6 @@ import { ReceiverFormComponent } from './components/receiver-form/receiver-form.
     HeaderComponent,
     SidebarComponent,
     FooterComponent,
-    ReceiverFormComponent
   ],
   imports: [
     CommonModule,
