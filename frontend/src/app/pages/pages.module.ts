@@ -14,6 +14,7 @@ import { TransferenceComponent } from './transference/transference.component';
 import { NewReceiverComponent } from './new-receiver/new-receiver.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReceiptsComponent } from './receipts/receipts.component';
+import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
 @NgModule({
   schemas: [
     NO_ERRORS_SCHEMA
@@ -25,7 +26,8 @@ import { ReceiptsComponent } from './receipts/receipts.component';
     HistoryComponent,
     PagesComponent,
     ReceiptsComponent,
-    LinksComponent
+    LinksComponent,
+    EditReceiverComponent
   ],
   exports: [
     DashboardComponent,
