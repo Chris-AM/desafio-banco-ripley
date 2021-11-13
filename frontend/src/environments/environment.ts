@@ -3,7 +3,13 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+   // bank list
+   BANK_LIST: 'https://bast.dev/api/banks.php',
+   BASE_URL: 'http://localhost:3000',
+   //account list
+   ACCOUNT_LIST: '/api/accounts',
+   RECEIVER_LIST: '/api/receivers/',
 };
 
 /*
