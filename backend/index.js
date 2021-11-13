@@ -15,6 +15,9 @@ dbConnection();
 //getting and parsing the body
 app.use(express.json());
 
+//routes
+app.use('/api/accounts', require('./routes/account.routes'));
+
 //setting port
 const port = process.env.PORT;
 app.listen(port, () => {
