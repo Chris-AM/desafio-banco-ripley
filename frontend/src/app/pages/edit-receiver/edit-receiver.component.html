@@ -1,1 +1,52 @@
-<p>edit-receiver works!</p>
+<form (ngSubmit)="editReceiverForm()" [formGroup]="editReceiver">
+    <div class="form-container">
+        <div class="column">
+            <p> {{rut}} </p>
+            <input
+                [class.is-invalid]="editReceiver.get('receiverRut')?.touched && editReceiver.get('receiverRut')?.invalid"
+                type="text" class="form-control" formControlName="rut">
+            <p>{{mail}} </p>
+            <input
+                [class.is-invalid]="editReceiver.get('receiverMail')?.touched && editReceiver.get('receiverMail')?.invalid"
+                type="text" class="form-control" formControlName="mail">
+            <p>{{bank}}</p>
+            <select
+            [class.is-invalid]="editReceiver.get('receiverBank')?.touched && editReceiver.get('receiverBank')?.invalid"
+            type="text" class="form-control" formControlName="bank">
+                <option value="">Seleccione un banco</option>
+                <option *ngFor="let bank of banksList" [value]="bank.name">{{bank.name}}</option>
+            </select>
+            <p>{{account}}</p>
+            <input
+            [class.is-invalid]="editReceiver.get('receiverAccount')?.touched && editReceiver.get('receiverAccount')?.invalid"
+            type="text" class="form-control" formControlName="account_number">
+        </div>
+        <div class="column">
+            <p> {{name}}</p>
+            <input
+            [class.is-invalid]="editReceiver.get('receiverName')?.touched && editReceiver.get('receiverName')?.invalid"
+            type="text" class="form-control" formControlName="name">
+            <p>{{phone}}</p>
+            <input
+            [class.is-invalid]="editReceiver.get('receiverPhone')?.touched && editReceiver.get('receiverPhone')?.invalid"
+            type="text" class="form-control" formControlName="phone">
+            <p>{{type}}</p>
+            <select
+            [class.is-invalid]="editReceiver.get('receiverType')?.touched && editReceiver.get('receiverType')?.invalid"
+            class="form-control" formControlName="account_type">
+                <option value="">Seleccione un tipo</option>
+                <option *ngFor="let type of accountsList" [value]="type._id">{{type.account_type}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col text-danger">
+            <p *ngIf="invalidFields()">TODOS LOS CAMPOS SON OBLIGARTORIOS</p>
+        </div>
+    </div>
+    <div class="button-container">
+        <button class="btn btn-primary btn-lg">
+            {{accept}}
+        </button>
+    </div>
+</form>
