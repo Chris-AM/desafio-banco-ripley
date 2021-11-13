@@ -27,7 +27,7 @@ export class NewReceiverComponent implements OnInit {
   public banksList: any[] = [];
 
   //list of accounts
-  public accountsList: AccountList[] = [];
+  public accountsList:any[] = [];
 
   // form
   newReceiver = new FormGroup({
@@ -72,6 +72,10 @@ export class NewReceiverComponent implements OnInit {
   };
 
   public getAccounts() {
-    this.accountsList = this._accountList.getAccounts()
+   this._accountList.getAccounts()
+    .subscribe((data:any) => {
+      this.accountsList = data.accounts;
+      console.log('account lista ->', this.accountsList);
+    } );
   }
 }

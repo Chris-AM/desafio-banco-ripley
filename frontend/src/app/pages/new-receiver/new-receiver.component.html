@@ -36,7 +36,7 @@
             [class.is-invalid]="newReceiver.get('receiverType')?.touched && newReceiver.get('receiverType')?.invalid"
             class="form-control" formControlName="receiverType">
                 <option value="">Seleccione un tipo</option>
-                <option *ngFor="let type of accountsList" [value]="type.accountName">{{type.accountName}}</option>
+                <option *ngFor="let type of accountsList" [value]="type.account_type">{{type.account_type}}</option>
             </select>
         </div>
     </div>
