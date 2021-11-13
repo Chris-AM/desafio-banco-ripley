@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { MESSAGES } from 'src/app/shared/constants/messages';
-import { ReceiptsService } from './receipts.service';
+import { ReceiptsService } from '../../services/receipts.service';
 
 @Component({
   selector: 'app-receipts',
