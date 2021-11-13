@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { DashboardComponent } from "./dashboard/dashboard.component";
+import { EditReceiverComponent } from "./edit-receiver/edit-receiver.component";
 import { HistoryComponent } from "./history/history.component";
 import { NewReceiverComponent } from "./new-receiver/new-receiver.component";
 import { PagesComponent } from "./pages.component";
@@ -17,6 +18,7 @@ const routes: Routes = [
             { path: 'nuevo-destinatario', component: NewReceiverComponent, data: { title: 'New Receiver' } },
             { path: 'nueva-transferencia', component: TransferenceComponent, data: { title: 'New Transference' } },
             { path: 'destinatarios', component: ReceiptsComponent, data: { title: 'Receivers' } },
+            { path: 'editar-destinatario/:_id', component: EditReceiverComponent, data: { title: 'Edit Receiver' } },
         ]
     }
 ];
