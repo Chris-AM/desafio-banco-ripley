@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
-  FormControl,
-  FormGroup,
   Validators,
 } from '@angular/forms';
 import * as _ from 'lodash';
@@ -10,7 +8,6 @@ import { MESSAGES } from 'src/app/shared/constants/messages';
 import { AccountsListService } from '../../services/accounts-list.service';
 import { BanksListService } from '../../services//banks-list.service';
 import { ReceiptsService } from 'src/app/services/receipts.service';
-import { Receipts } from 'src/app/shared/interfaces/receiptsInterface';
 @Component({
   selector: 'app-new-receiver',
   templateUrl: './new-receiver.component.html',
@@ -58,7 +55,7 @@ export class NewReceiverComponent implements OnInit {
     this.getMessages();
     this.getBanks();
     this.getAccounts();
-    //this.createReceiver();
+    this.createReceiver();
   }
 
   public getMessages() {

@@ -1,19 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  Validators,
+} from '@angular/forms';
 import * as _ from 'lodash';
 import { MESSAGES } from 'src/app/shared/constants/messages';
 import { AccountsListService } from '../../services/accounts-list.service';
 import { BanksListService } from '../../services//banks-list.service';
-import { ActivatedRoute } from '@angular/router';
 import { ReceiptsService } from 'src/app/services/receipts.service';
-
 @Component({
-  selector: 'app-edit-receiver',
+  selector: 'app-new-receiver',
   templateUrl: './edit-receiver.component.html',
-  styleUrls: ['./edit-receiver.component.scss']
+  styleUrls: ['./edit-receiver.component.scss'],
 })
 export class EditReceiverComponent implements OnInit {
-
+  //messages
   public title: string = '';
   public name: string = '';
   public mail: string = '';
@@ -28,7 +29,7 @@ export class EditReceiverComponent implements OnInit {
   public banksList: any[] = [];
 
   //list of accounts
-  public accountsList:any[] = [];
+  public accountsList: any[] = [];
 
   // form
   editReceiver = this.fb.group({
@@ -47,32 +48,18 @@ export class EditReceiverComponent implements OnInit {
     private fb: FormBuilder,
     private _banksList: BanksListService,
     private _accountList: AccountsListService,
-    private _receiptService: ReceiptsService,
-    private _route: ActivatedRoute
-  ) { }
-
+    private _receiverService: ReceiptsService
+  ) {}
 
   ngOnInit(): void {
     this.getMessages();
     this.getBanks();
     this.getAccounts();
-    console.log('_route ->', this._route.snapshot.params._id);
-    this._receiptService.getReceiptById(this._route.snapshot.params._id).subscribe((result: any) => {
-      console.log('result' , result.receiver); 
-      this.editReceiver = new FormGroup({
-        receiverRut: new FormControl(result.receiver.rut, Validators.required),
-        receiverMail: new FormControl(result.receiver.mail, Validators.email),
-        receiverBank: new FormControl(result.receiver.bank, Validators.required),
-        receiverAccount: new FormControl(result.receiver.account_number, Validators.required),
-        receiverName: new FormControl(result.receiver.name, Validators.required),
-        receiverPhone: new FormControl(result.receiver.phone, Validators.required),
-        receiverType: new FormControl(result.receiver.account_type.account_type, Validators.required),
-      });
-    });
+    this.editReceiverForm();
   }
 
   public getMessages() {
-    this.title = _.get(MESSAGES, 'RECEIVER.TITLE');
+    this.title = _.get(MESSAGES, 'RECEIVER.');
     this.name = _.get(MESSAGES, 'RECEIVER.NAME');
     this.mail = _.get(MESSAGES, 'RECEIVER.MAIL');
     this.bank = _.get(MESSAGES, 'RECEIVER.BANK');
@@ -83,24 +70,29 @@ export class EditReceiverComponent implements OnInit {
     this.accept = _.get(MESSAGES, 'RECEIVER.ACCEPT');
   }
 
+  //CRUD METHODS
   public getBanks() {
-    this._banksList.getBanksList()
-      .subscribe((data:any) => {
-        this.banksList = data.banks;
-      })
-  };
+    this._banksList.getBanksList().subscribe((data: any) => {
+      this.banksList = data.banks;
+    });
+  }
 
   public getAccounts() {
-   this._accountList.getAccounts()
-    .subscribe((data:any) => {
+    this._accountList.getAccounts().subscribe((data: any) => {
       this.accountsList = data.accounts;
       console.log('account lista ->', this.accountsList);
-    } );
+    });
   }
 
-  public editReceiverForm(){
-
+  public editReceiverForm() {
+    this.isFormSubmited = true;
+    console.log('rut touched', this.editReceiver.get('rut')?.touched);
+    if(this.editReceiver.invalid){
+      return;
+    }
   }
+
+
   //VALIDATIONS
   invalidFields(): boolean {
     if (this.editReceiver.invalid && this.isFormSubmited) {

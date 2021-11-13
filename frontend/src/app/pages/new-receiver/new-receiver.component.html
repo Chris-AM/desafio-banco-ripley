@@ -3,38 +3,37 @@
     <div class="form-container">
         <div class="column">
             <p> {{rut}} </p>
-            <input
-                [class.is-invalid]="newReceiver.get('receiverRut')?.touched && newReceiver.get('receiverRut')?.invalid"
-                type="text" class="form-control" formControlName="rut">
+            <input [class.is-invalid]="newReceiver.get('rut')?.touched && newReceiver.get('rut')?.invalid" type="text"
+                class="form-control" formControlName="rut">
             <p>{{mail}} </p>
             <input
-                [class.is-invalid]="newReceiver.get('receiverMail')?.touched && newReceiver.get('receiverMail')?.invalid"
+                [class.is-invalid]="newReceiver.get('mail')?.touched && newReceiver.get('mail')?.invalid"
                 type="text" class="form-control" formControlName="mail">
             <p>{{bank}}</p>
             <select
-            [class.is-invalid]="newReceiver.get('receiverBank')?.touched && newReceiver.get('receiverBank')?.invalid"
-            type="text" class="form-control" formControlName="bank">
+                [class.is-invalid]="newReceiver.get('bank')?.touched && newReceiver.get('bank')?.invalid"
+                type="text" class="form-control" formControlName="bank">
                 <option value="">Seleccione un banco</option>
                 <option *ngFor="let bank of banksList" [value]="bank.name">{{bank.name}}</option>
             </select>
             <p>{{account}}</p>
             <input
-            [class.is-invalid]="newReceiver.get('receiverAccount')?.touched && newReceiver.get('receiverAccount')?.invalid"
-            type="text" class="form-control" formControlName="account_number">
+                [class.is-invalid]="newReceiver.get('account_number')?.touched && newReceiver.get('account_number')?.invalid"
+                type="text" class="form-control" formControlName="account_number">
         </div>
         <div class="column">
             <p> {{name}}</p>
             <input
-            [class.is-invalid]="newReceiver.get('receiverName')?.touched && newReceiver.get('receiverName')?.invalid"
-            type="text" class="form-control" formControlName="name">
+                [class.is-invalid]="newReceiver.get('name')?.touched && newReceiver.get('name')?.invalid"
+                type="text" class="form-control" formControlName="name">
             <p>{{phone}}</p>
             <input
-            [class.is-invalid]="newReceiver.get('receiverPhone')?.touched && newReceiver.get('receiverPhone')?.invalid"
-            type="text" class="form-control" formControlName="phone">
+                [class.is-invalid]="newReceiver.get('phone')?.touched && newReceiver.get('phone')?.invalid"
+                type="text" class="form-control" formControlName="phone">
             <p>{{type}}</p>
             <select
-            [class.is-invalid]="newReceiver.get('receiverType')?.touched && newReceiver.get('receiverType')?.invalid"
-            class="form-control" formControlName="account_type">
+                [class.is-invalid]="newReceiver.get('account_type')?.touched && newReceiver.get('account_type')?.invalid"
+                class="form-control" formControlName="account_type">
                 <option value="">Seleccione un tipo</option>
                 <option *ngFor="let type of accountsList" [value]="type._id">{{type.account_type}}</option>
             </select>
@@ -46,7 +45,7 @@
         </div>
     </div>
     <div class="button-container">
-        <button  class="btn btn-primary btn-lg">
+        <button class="btn btn-primary btn-lg">
             {{accept}}
         </button>
     </div>
