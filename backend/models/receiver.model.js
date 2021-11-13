@@ -27,13 +27,13 @@ const ReceiverSchema = Schema({
         required: true
     },
     account_number: {
-        tyoe: Number,
+        type: Number,
         required: true
     },
 });
 
-ReceiverSchema.methods('toJSON', function () {
-    const {__v, _id, ...object} = this.toObject();
+ReceiverSchema.method('toJSON', function () {
+    const {__v, ...object} = this.toObject();
     return object;
 });
 
