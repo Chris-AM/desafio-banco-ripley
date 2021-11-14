@@ -89,7 +89,6 @@ export class NewReceiverComponent
   public getAccounts() {
     this._accountList.getAccounts().subscribe((data: any) => {
       this.accountsList = data.accounts;
-      console.log('account lista ->', this.accountsList);
     });
   }
 
