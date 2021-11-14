@@ -1,30 +1,24 @@
 <table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-        </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-        </tr>
-    </tbody>
+    <div class="rnd-corner">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">{{names}}</th>
+                <th scope="col">{{rut}}</th>
+                <th scope="col">{{bank}}</th>
+                <th scope="col">{{type}}</th>
+                <th scope="col">{{mount}}</th>
+                <th scope="col">{{date}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transaction of transactions">
+                <td> {{transaction.receiver.name}} </td>
+                <td> {{transaction.receiver.rut}} </td>
+                <td> {{transaction.receiver.bank}} </td>
+                <td> {{transaction.account.account_type}} </td>
+                <td> {{transaction.ammount |currency:'CLP':'symbol-narrow'}} </td>
+                <td> {{transaction.date | date: 'dd/MM/yyyy'}}  </td>
+            </tr>
+        </tbody>
+    </div>
 </table>
