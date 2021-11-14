@@ -12,7 +12,10 @@ import { UnsubscribeHelper } from '../../shared/unsubscribe.helper';
   templateUrl: './new-receiver.component.html',
   styleUrls: ['./new-receiver.component.scss'],
 })
-export class NewReceiverComponent extends UnsubscribeHelper implements OnInit, OnDestroy {
+export class NewReceiverComponent
+  extends UnsubscribeHelper
+  implements OnInit, OnDestroy
+{
   //messages
   public title: string = '';
   public name: string = '';
@@ -23,6 +26,9 @@ export class NewReceiverComponent extends UnsubscribeHelper implements OnInit, O
   public account: string = '';
   public phone: string = '';
   public accept: string = '';
+  public missingFields: string = '';
+  public created: string = '';
+  public message: boolean = false;
 
   // list of banks
   public banksList: any[] = [];
@@ -47,8 +53,7 @@ export class NewReceiverComponent extends UnsubscribeHelper implements OnInit, O
     private fb: FormBuilder,
     private _banksList: BanksListService,
     private _accountList: AccountsListService,
-    private _receiverService: ReceiptsService,
-    
+    private _receiverService: ReceiptsService
   ) {
     super();
   }
@@ -70,6 +75,8 @@ export class NewReceiverComponent extends UnsubscribeHelper implements OnInit, O
     this.account = _.get(MESSAGES, 'RECEIVER.ACCOUNT');
     this.phone = _.get(MESSAGES, 'RECEIVER.PHONE');
     this.accept = _.get(MESSAGES, 'RECEIVER.ACCEPT');
+    this.missingFields = _.get(MESSAGES, 'RECEIVER.MISSING_FIELDS');
+    this.created = _.get(MESSAGES, 'RECEIVER.CREATED');
   }
 
   //CRUD METHODS
@@ -94,8 +101,9 @@ export class NewReceiverComponent extends UnsubscribeHelper implements OnInit, O
     this._receiverService
       .createReceipt(this.newReceiver.value)
       .subscribe((resp) => {
-        console.log('respuesta ->', resp);
-      });
+        this.message=true;
+        this.newReceiver.reset();
+    });
   }
 
   //VALIDATIONS
@@ -105,5 +113,9 @@ export class NewReceiverComponent extends UnsubscribeHelper implements OnInit, O
     } else {
       return false;
     }
+  }
+
+  public removeMessage() {
+    this.message = false;
   }
 }
