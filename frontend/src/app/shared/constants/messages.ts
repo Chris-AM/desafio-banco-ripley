@@ -36,6 +36,10 @@ export const MESSAGES = {
         ACCOUNT: 'Número de cuenta',
         PHONE: 'Teléfono',
         ACCEPT: 'Crear',
+        CREATED: 'Nuevo destinatario creado con éxito',
+        UPDATE: 'Actualizar',
+        UPDATED: 'Destinatario actualizado con éxito',
+        MISSING_FIELDS: 'TODOS LOS CAMPOS SON OBLIGARTORIOS',
     },
     HISTORY:{
         TITLE: 'Historial',
