@@ -1,4 +1,8 @@
 <h2>{{title}}</h2>
+<div *ngIf="message" class="text-center alert alert-success alert-dismissible fade show" role="alert">
+    {{updated}}
+    <button (click)="removeMessage()" type="button" data-bs-dismiss="alert" aria-label="Close">X</button>
+</div>
 <form [formGroup]="editReceiver" (ngSubmit)="editReceiverForm()">
     <div class="form-container">
         <div class="column">
@@ -42,12 +46,12 @@
     </div>
     <div class="row mt-5">
         <div class="col text-danger">
-            <p *ngIf="invalidFields()">TODOS LOS CAMPOS SON OBLIGARTORIOS</p>
+            <p *ngIf="invalidFields()">{{missingFields}}</p>
         </div>
     </div>
     <div class="button-container">
         <button  class="btn btn-primary btn-lg">
-            {{accept}}
+            {{update}}
         </button>
     </div>
 </form>

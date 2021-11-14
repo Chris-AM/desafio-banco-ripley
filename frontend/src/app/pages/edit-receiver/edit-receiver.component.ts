@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { MESSAGES } from 'src/app/shared/constants/messages';
 import { AccountsListService } from '../../services/accounts-list.service';
@@ -24,7 +22,10 @@ export class EditReceiverComponent extends UnsubscribeHelper implements OnInit {
   public rut: string = '';
   public account: string = '';
   public phone: string = '';
-  public accept: string = '';
+  public update: string = '';
+  public missingFields: string = '';
+  public updated: string = '';
+  public message: boolean = false;
 
   // list of banks
   public banksList: any[] = [];
@@ -47,6 +48,8 @@ export class EditReceiverComponent extends UnsubscribeHelper implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router,
     private _banksList: BanksListService,
     private _accountList: AccountsListService,
     private _receiverService: ReceiptsService
@@ -58,7 +61,7 @@ export class EditReceiverComponent extends UnsubscribeHelper implements OnInit {
     this.getMessages();
     this.getBanks();
     this.getAccounts();
-    this.editReceiverForm();
+    this.loadReaceiver();
   }
 
   public getMessages() {
@@ -70,7 +73,9 @@ export class EditReceiverComponent extends UnsubscribeHelper implements OnInit {
     this.rut = _.get(MESSAGES, 'RECEIVER.RUT');
     this.account = _.get(MESSAGES, 'RECEIVER.ACCOUNT');
     this.phone = _.get(MESSAGES, 'RECEIVER.PHONE');
-    this.accept = _.get(MESSAGES, 'RECEIVER.ACCEPT');
+    this.update = _.get(MESSAGES, 'RECEIVER.UPDATE');
+    this.missingFields = _.get(MESSAGES, 'RECEIVER.MISSING_FIELDS');
+    this.updated = _.get(MESSAGES, 'RECEIVER.UPDATED');
   }
 
   //CRUD METHODS
@@ -88,14 +93,33 @@ export class EditReceiverComponent extends UnsubscribeHelper implements OnInit {
   }
 
   public editReceiverForm() {
-    this.isFormSubmited = true;
-    console.log('rut touched', this.editReceiver.get('rut')?.touched);
-    if(this.editReceiver.invalid){
-      return;
-    }
+    const id = this._activatedRoute.snapshot.params._id;
+    console.log('edit receiver form', this.editReceiver.value);
+    console.log('id', id);
+    this._receiverService.updateReceipt(id, this.editReceiver.value).subscribe(
+      res => {
+        this.message=true;
+      }
+    );
   }
 
-
+  loadReaceiver() {
+    const id = this._activatedRoute.snapshot.params._id;
+    console.log('id', id);
+    this._receiverService.getReceiptById(id).subscribe((data: any) => {
+      console.log('data -->', data.receiver.account_type.account_type);
+      this.editReceiver.patchValue({
+        rut: data.receiver.rut,
+        mail: data.receiver.mail,
+        bank: data.receiver.bank,
+        account_number: data.receiver.account_number,
+        name: data.receiver.name,
+        phone: data.receiver.phone,
+        account_type: data.receiver.account_type.account_type,
+      });
+    });
+  }
+ 
   //VALIDATIONS
   invalidFields(): boolean {
     if (this.editReceiver.invalid && this.isFormSubmited) {
@@ -103,5 +127,10 @@ export class EditReceiverComponent extends UnsubscribeHelper implements OnInit {
     } else {
       return false;
     }
+  }
+
+  public removeMessage() {
+    this.message = false;
+    this._router.navigate(['/dashboard/destinatarios']);
   }
 }
