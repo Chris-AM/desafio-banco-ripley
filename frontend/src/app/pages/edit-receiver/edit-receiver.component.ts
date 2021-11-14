@@ -8,12 +8,13 @@ import { MESSAGES } from 'src/app/shared/constants/messages';
 import { AccountsListService } from '../../services/accounts-list.service';
 import { BanksListService } from '../../services//banks-list.service';
 import { ReceiptsService } from 'src/app/services/receipts.service';
+import { UnsubscribeHelper } from 'src/app/shared/unsubscribe.helper';
 @Component({
   selector: 'app-new-receiver',
   templateUrl: './edit-receiver.component.html',
   styleUrls: ['./edit-receiver.component.scss'],
 })
-export class EditReceiverComponent implements OnInit {
+export class EditReceiverComponent extends UnsubscribeHelper implements OnInit {
   //messages
   public title: string = '';
   public name: string = '';
@@ -49,7 +50,9 @@ export class EditReceiverComponent implements OnInit {
     private _banksList: BanksListService,
     private _accountList: AccountsListService,
     private _receiverService: ReceiptsService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getMessages();

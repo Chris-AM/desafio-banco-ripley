@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
 import { MESSAGES } from 'src/app/shared/constants/messages';
+import { UnsubscribeHelper } from 'src/app/shared/unsubscribe.helper';
 import { ReceiptsService } from '../../services/receipts.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { ReceiptsService } from '../../services/receipts.service';
   templateUrl: './receipts.component.html',
   styleUrls: ['./receipts.component.scss']
 })
-export class ReceiptsComponent implements OnInit {
+export class ReceiptsComponent extends UnsubscribeHelper implements OnInit {
 
 
   //messages
@@ -22,7 +23,7 @@ export class ReceiptsComponent implements OnInit {
   public phone: string = '';
 
   public receiptList: any[] = [];
-  constructor( private _receiptsService: ReceiptsService ) { }
+  constructor( private _receiptsService: ReceiptsService ) { super(); }
 
   ngOnInit(): void {
     this.getMessages();
