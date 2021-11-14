@@ -4,8 +4,6 @@ import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 import { Receipts } from '../shared/interfaces/receiptsInterface';
 import { environment } from '../../environments/environment';
-import { map } from 'rxjs/operators';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -15,9 +13,6 @@ export class ReceiptsService {
   private url = this.baseUrl + this.receiptsUrl;
 
   constructor(private _httpClient: HttpClient) {}
-  get token(): string {
-    return localStorage.getItem('token') || '';
-  }
 
   getReceipts() {
     console.log('url -->', this.url);
