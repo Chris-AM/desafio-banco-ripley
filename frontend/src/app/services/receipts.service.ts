@@ -16,7 +16,7 @@ export class ReceiptsService {
   constructor(private _httpClient: HttpClient) {}
 
   getReceipts() {
-    console.log(this.url);
+    console.log('url -->', this.url);
     return this._httpClient.get(this.url);
   }
 
@@ -28,5 +28,8 @@ export class ReceiptsService {
     return this._httpClient.post(this.url, receipt)
   }
 
+  updateReceipt(receipt: Receipts) {
+    return this._httpClient.put(this.url + receipt.id, receipt)
+  }
 
 }
