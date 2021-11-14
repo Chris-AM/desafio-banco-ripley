@@ -10,6 +10,11 @@ const TransferSchema = Schema({
         type: Number,
         required: true
     },
+    account: {
+        type: Schema.Types.ObjectId,
+        ref: 'Account',
+        required: true
+    },
     date: {
         type: Date,
         default: Date.now
