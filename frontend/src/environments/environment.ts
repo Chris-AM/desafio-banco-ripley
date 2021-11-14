@@ -10,7 +10,7 @@ export const environment = {
    //account list
    ACCOUNT_LIST: '/api/accounts',
    RECEIVER_LIST: '/api/receivers/',
-   TRANSFER_LIST: '/api/transfers/',
+   TRANSFER_LIST: '/api/transactions/',
 };
 
 /*

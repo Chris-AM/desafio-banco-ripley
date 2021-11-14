@@ -45,6 +45,7 @@ export const MESSAGES = {
         TITLE: 'Historial',
         NAMES: 'Destinatarios',
         RUT: 'RUT',
+        BANK: 'Banco',
         ACCOUNT: 'Número de cuenta',
         TYPE: 'Tipo de cuenta',
         MOUNT: 'Monto',
