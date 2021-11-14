@@ -71,20 +71,26 @@ const updateReceiver = async (req = request, res = response) => {
     const { rut } = req.body;
     console.log('rut ==> ', rut);
     try {
-        const receiverExists = await Receiver.findOne({ rut });
-        if (!receiverExists) {
+        const receiver = await Receiver.findById(id);
+        if (!receiver) {
             return res.status(404).json({
                 ok: false,
-                msg: 'Receiver does not exist'
+                msg: 'Receiver not found'
             });
         }
-        console.log('id -> ', id);
-        const receiver = await Receiver.findOneAndUpdate({ rut }, req.body, { new: true });
+
+        const updatingReceiver = {
+            ...req.body
+        }
+
+        const receiverUpdated = 
+            await Receiver.findByIdAndUpdate(id, updatingReceiver, { new: true });
         res.json({
             ok: true,
             msg: 'Receiver updated successfully',
-            receiver
+            receiver: receiverUpdated
         });
+
     }
     catch (error) {
         console.log('error ==> ', error);
