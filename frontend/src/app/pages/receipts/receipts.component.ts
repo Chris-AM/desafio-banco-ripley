@@ -53,4 +53,17 @@ export class ReceiptsComponent extends UnsubscribeHelper implements OnInit {
     this.account = _.get(MESSAGES, 'RECEIVER.ACCOUNT');
     this.phone = _.get(MESSAGES, 'RECEIVER.PHONE');
   }
+
+  deleteReceipt(id: string) {
+    console.log('id -->', id);
+   this._receiptsService.deleteReceipt(id).subscribe(
+      (data: any) => {
+        console.log('data -->', data);
+        this.getReceipts();
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
+  }
 }
