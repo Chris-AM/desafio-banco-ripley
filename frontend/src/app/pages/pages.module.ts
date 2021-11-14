@@ -1,10 +1,15 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { LOCALE_ID, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
+//locale
+import { registerLocaleData } from '@angular/common';
+import localeCl from '@angular/common/locales/es-CL';
+
+registerLocaleData(localeCl, 'es-CL');
 
 //components
 import { LinksComponent } from './links/links.component';
@@ -16,9 +21,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReceiptsComponent } from './receipts/receipts.component';
 import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
 @NgModule({
-  schemas: [
-    NO_ERRORS_SCHEMA
-  ],
+  schemas: [NO_ERRORS_SCHEMA],
   declarations: [
     DashboardComponent,
     NewReceiverComponent,
@@ -27,7 +30,7 @@ import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
     PagesComponent,
     ReceiptsComponent,
     LinksComponent,
-    EditReceiverComponent
+    EditReceiverComponent,
   ],
   exports: [
     DashboardComponent,
@@ -35,7 +38,7 @@ import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
     TransferenceComponent,
     HistoryComponent,
     PagesComponent,
-    ReceiptsComponent
+    ReceiptsComponent,
   ],
   imports: [
     CommonModule,
@@ -43,9 +46,8 @@ import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
     FlexLayoutModule,
     ReactiveFormsModule,
     SharedModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  providers: [
-  ]
+  providers: [{ provide: LOCALE_ID, useValue: 'es-CL' }],
 })
-export class PagesModule { }
+export class PagesModule {}
