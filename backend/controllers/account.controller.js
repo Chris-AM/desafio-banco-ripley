@@ -37,9 +37,27 @@ const getAccounts = async(req = request, res = response) => {
     }
 }
 
+const getAccount = async(req = request, res = response) => {
+    const { id } = req.params;
+    try {
+        const account = await Account.findById(id);
+        res.status(200).json({
+            ok: true,
+            message: "Account retrieved successfully",
+            account
+        });
+    } catch (error) {
+        console.log('Error ==>', error);
+        res.status(500).json({
+            ok: false,
+            msg:'Internal server error. Check Logs'
+        })
+    }
+}
 
 
 module.exports = {
     createAccount,
-    getAccounts
+    getAccounts,
+    getAccount
 }

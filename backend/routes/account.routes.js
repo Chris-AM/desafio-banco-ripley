@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
-const { createAccount, getAccounts } = require('../controllers/account.controller');
+const { createAccount, getAccounts, getAccount } = require('../controllers/account.controller');
 const { validateFields } = require('../middlewares/validate-fields');
 
 const router = Router()
@@ -10,6 +10,7 @@ router.post('/', [
     validateFields
 ], createAccount)
 
-router.get('/', getAccounts)
+router.get('/', getAccounts);
+router.get('/:id', getAccount);
 
 module.exports = router
