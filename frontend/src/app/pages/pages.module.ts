@@ -22,6 +22,7 @@ import { NewReceiverComponent } from './new-receiver/new-receiver.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReceiptsComponent } from './receipts/receipts.component';
 import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -53,7 +54,8 @@ import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es-CL' }],
 })
