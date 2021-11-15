@@ -18,7 +18,8 @@ export class HistoryComponent extends UnsubscribeHelper implements OnInit {
   public type: string = '';
   public mount: string = '';
   public date: string = '';
-
+  public page: number = 1;
+  public pageSize: number = 5;
   public transactions: any[] = [];
 
   constructor(private trasactionService: TransactionsService) {
@@ -43,7 +44,6 @@ export class HistoryComponent extends UnsubscribeHelper implements OnInit {
   public getTransactions() {
     return this.trasactionService.getTransactions().subscribe((data: any) => {
       this.transactions = data.transfers;
-      console.log(this.transactions);
     });
   }
 }
