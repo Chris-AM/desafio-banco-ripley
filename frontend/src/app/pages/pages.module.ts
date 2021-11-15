@@ -2,9 +2,11 @@ import { LOCALE_ID, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
+//pipes
+import { FilterPipe } from '../pipes/filter.pipe';
 //locale
 import { registerLocaleData } from '@angular/common';
 import localeCl from '@angular/common/locales/es-CL';
@@ -20,6 +22,9 @@ import { NewReceiverComponent } from './new-receiver/new-receiver.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReceiptsComponent } from './receipts/receipts.component';
 import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
+
+
+
 @NgModule({
   schemas: [NO_ERRORS_SCHEMA],
   declarations: [
@@ -31,6 +36,7 @@ import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
     ReceiptsComponent,
     LinksComponent,
     EditReceiverComponent,
+    FilterPipe,
   ],
   exports: [
     DashboardComponent,
@@ -47,6 +53,7 @@ import { EditReceiverComponent } from './edit-receiver/edit-receiver.component';
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
+    FormsModule
   ],
   providers: [{ provide: LOCALE_ID, useValue: 'es-CL' }],
 })
