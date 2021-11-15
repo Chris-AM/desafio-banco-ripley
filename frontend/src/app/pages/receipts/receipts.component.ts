@@ -7,11 +7,9 @@ import { ReceiptsService } from '../../services/receipts.service';
 @Component({
   selector: 'app-receipts',
   templateUrl: './receipts.component.html',
-  styleUrls: ['./receipts.component.scss']
+  styleUrls: ['./receipts.component.scss'],
 })
 export class ReceiptsComponent extends UnsubscribeHelper implements OnInit {
-
-
   //messages
   public title: string = '';
   public name: string = '';
@@ -23,7 +21,9 @@ export class ReceiptsComponent extends UnsubscribeHelper implements OnInit {
   public phone: string = '';
 
   public receiptList: any[] = [];
-  constructor( private _receiptsService: ReceiptsService ) { super(); }
+  constructor(private _receiptsService: ReceiptsService) {
+    super();
+  }
 
   ngOnInit(): void {
     this.getMessages();
@@ -33,12 +33,10 @@ export class ReceiptsComponent extends UnsubscribeHelper implements OnInit {
   public getReceipts() {
     this._receiptsService.getReceipts().subscribe(
       (data: any) => {
-        console.log('data -->', data);
         this.receiptList = data.receivers;
-        console.log('this.receiptList -->', this.receiptList);
       },
       (error: any) => {
-        console.log(error);
+        throw new Error(error);
       }
     );
   }
@@ -55,15 +53,11 @@ export class ReceiptsComponent extends UnsubscribeHelper implements OnInit {
   }
 
   deleteReceipt(id: string) {
-    console.log('id -->', id);
-   this._receiptsService.deleteReceipt(id).subscribe(
+    this._receiptsService.deleteReceipt(id).subscribe(
       (data: any) => {
-        console.log('data -->', data);
         this.getReceipts();
       },
-      (error: any) => {
-        console.log(error);
-      }
+      (error: any) => {}
     );
   }
 }
