@@ -1,1 +1,87 @@
-<p>transference works!</p>
+<div class="container">
+    <h2>Buscar Destinatarios</h2>
+    <div class="row">
+        <div class="col">
+            <div class="form-group">
+                <input type="text" class="form-group" name="filterReceipts" placeholder="Buscar Destinatarios"
+                    [(ngModel)]="filterReceipts">
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>nombre</th>
+                        <th>cuenta</th>
+                        <th>banco</th>
+                        <th>correo</th>
+                        <th>Accion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let receiver of receiptList | filter:filterReceipts">
+                        <td> {{receiver.name}} </td>
+                        <td> {{receiver.account_type.account_type}} </td>
+                        <td> {{receiver.bank}} </td>
+                        <td> {{receiver.mail}} </td>
+                        <td> <button class="btn btn-primary"
+                                (click)="openTransferModal(receiver, transferModal)">Depositar</button>
+                    </tr>
+                </tbody>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #transferModal>
+    <div class="modal-header">
+        <h5 class="modal-title">Deposito a {{receiver.name}}</h5>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="newTransfer" (ngSubmit)="generateTransaction()">
+            <div class="form-contaner" style="display: flex;">
+                <div class="column">
+                    <p> rut</p>
+                    <input type="text" class="form-control" formControlName="rut" placeholder="{{receiver.rut}} "
+                        readonly="readonly">
+                    <p>correo</p>
+                    <input type="text" class="form-control" formControlName="mail" placeholder="{{receiver.mail}} "
+                        readonly="readonly">
+                    <p>banco</p>
+                    <input type="text" class="form-control" formControlName="bank" placeholder="{{receiver.bank}} "
+                        readonly="readonly">
+                    <p>Número de cuenta</p>
+                    <input type="text" class="form-control" formControlName="account_number"
+                        placeholder="{{receiver.account_number}} " readonly="readonly">
+                </div>
+                <div class="column " readonly="readonly">
+                    <p> Nombre </p>
+                    <input type="text" class="form-control" formControlName="name" placeholder="{{receiver.name}} "
+                        readonly="readonly">
+                    <p>telefono</p>
+                    <input type="text" class="form-control" formControlName="phone" placeholder="{{receiver.phone}} "
+                        readonly="readonly">
+                    <p>tipo de cuenta</p>
+                    <input type="text" class="form-control" formControlName="account_type"
+                        placeholder="{{receiver.account_type.account_type}} " readonly="readonly">
+                    <p>Monto</p>
+
+                    <input [class.is-invalid]="newTransfer.get('amount')?.touched && newTransfer.get('amount')?.invalid"
+                        type="number" class="form-control" formControlName="amount">
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col text-danger">
+                    <p *ngIf="invalidFields()">Para realizar la transferencia es necesario ingresar un monto mayor a 0</p>
+                </div>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
