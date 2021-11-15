@@ -4,7 +4,8 @@
   "description": "backend constara de con las siguientes colecciones: new_receive: nuevo destinatario, account: tipo de cuenta, tranfers: tendra referencia al destinatario y el monto",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
