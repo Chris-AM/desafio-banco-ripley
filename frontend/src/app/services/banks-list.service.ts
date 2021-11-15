@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 import { map } from 'rxjs/operators';
 
 @Injectable({

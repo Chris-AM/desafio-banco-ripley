@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AccountList } from 'src/app/shared/interfaces/accountListInterface';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 
 
 @Injectable({

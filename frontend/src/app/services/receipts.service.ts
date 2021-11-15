@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import * as _ from 'lodash';
 import { Receipts } from '../shared/interfaces/receiptsInterface';
-import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
 @Injectable({
   providedIn: 'root',
 })
