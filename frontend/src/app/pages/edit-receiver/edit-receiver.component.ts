@@ -88,14 +88,11 @@ export class EditReceiverComponent extends UnsubscribeHelper implements OnInit {
   public getAccounts() {
     this._accountList.getAccounts().subscribe((data: any) => {
       this.accountsList = data.accounts;
-      console.log('account lista ->', this.accountsList);
     });
   }
 
   public editReceiverForm() {
-    const id = this._activatedRoute.snapshot.params._id;
-    console.log('edit receiver form', this.editReceiver.value);
-    console.log('id', id);
+    const id = this._activatedRoute.snapshot.params._id
     this._receiverService.updateReceipt(id, this.editReceiver.value).subscribe(
       res => {
         this.message=true;
@@ -104,10 +101,8 @@ export class EditReceiverComponent extends UnsubscribeHelper implements OnInit {
   }
 
   loadReaceiver() {
-    const id = this._activatedRoute.snapshot.params._id;
-    console.log('id', id);
+    const id = this._activatedRoute.snapshot.params._id
     this._receiverService.getReceiptById(id).subscribe((data: any) => {
-      console.log('data -->', data.receiver.account_type.account_type);
       this.editReceiver.patchValue({
         rut: data.receiver.rut,
         mail: data.receiver.mail,
