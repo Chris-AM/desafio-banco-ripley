@@ -1,5 +1,6 @@
+<h2>Buscar Destinatarios</h2>
+
 <div class="container">
-    <h2>Buscar Destinatarios</h2>
     <div class="row">
         <div class="col">
             <div class="form-group">
@@ -22,7 +23,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let receiver of receiptList | filter:filterReceipts">
+                    <tr *ngFor="let receiver of receiptList | filter:filterReceipts:'name' | slice: (page-1) * pageSize : page * pageSize">
                         <td> {{receiver.name}} </td>
                         <td> {{receiver.account_type.account_type}} </td>
                         <td> {{receiver.bank}} </td>
@@ -32,6 +33,7 @@
                     </tr>
                 </tbody>
             </div>
+            <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="receiptList.length"></ngb-pagination>
         </div>
     </div>
 </div>
@@ -40,8 +42,12 @@
     <div class="modal-header">
         <h5 class="modal-title">Deposito a {{receiver.name}}</h5>
     </div>
+    <div *ngIf="message" class="text-center alert alert-success alert-dismissible fade show" role="alert">
+        Transferencia realizada con éxito
+        <button (click)="closeModal()" type="button" data-bs-dismiss="alert" aria-label="Close">X</button>
+    </div>
     <div class="modal-body">
-        <form [formGroup]="newTransfer" (ngSubmit)="generateTransaction()">
+        <form [formGroup]="newTransfer" (ngSubmit)="generateTransaction(receiver)">
             <div class="form-contaner" style="display: flex;">
                 <div class="column">
                     <p> rut</p>
@@ -66,9 +72,8 @@
                         readonly="readonly">
                     <p>tipo de cuenta</p>
                     <input type="text" class="form-control" formControlName="account_type"
-                        placeholder="{{receiver.account_type.account_type}} " readonly="readonly">
+                        placeholder="{{receiver.account_type.account_type}}" readonly="readonly">
                     <p>Monto</p>
-
                     <input [class.is-invalid]="newTransfer.get('amount')?.touched && newTransfer.get('amount')?.invalid"
                         type="number" class="form-control" formControlName="amount">
                 </div>
@@ -79,8 +84,8 @@
                 </div>
             </div>
             <div class="button-container">
-                <button type="submit" class="btn btn-primary">Save changes</button>
-                <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+                <button type="submit" class="btn btn-primary">Depositar</button>
+                <button type="button" class="btn btn-warning" (click)="closeModal()">Cancelar</button>
             </div>
         </form>
     </div>

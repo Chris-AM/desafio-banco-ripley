@@ -1,24 +1,29 @@
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ReceiptsService } from 'src/app/services/receipts.service';
+import { TransactionsService } from 'src/app/services/transactions.service';
+import { UnsubscribeHelper } from 'src/app/shared/unsubscribe.helper';
 
 @Component({
   selector: 'app-transference',
   templateUrl: './transference.component.html',
   styleUrls: ['./transference.component.scss'],
 })
-export class TransferenceComponent implements OnInit {
+export class TransferenceComponent extends UnsubscribeHelper implements OnInit {
   public receiver: any;
   public receiptList: any[] = [];
   public filterReceipts: string = '';
+  public message: boolean = false;
+  //needed for pagination
+  public page: number = 1;
+  public pageSize: number = 5;
   // list of banks
   public banksList: any[] = [];
 
   //list of accounts
   public accountsList: any[] = [];
+  public idAccountType: string = '';
 
   public isFormSubmited: boolean = false;
 
@@ -31,42 +36,36 @@ export class TransferenceComponent implements OnInit {
     name: ['', Validators.required],
     phone: ['', Validators.required],
     account_type: [this.accountsList[0], Validators.required],
-    amount: ['', [ Validators.min(1)]],
+    amount: ['', [Validators.min(1), Validators.required]],
   });
 
   constructor(
     private fb: FormBuilder,
     private _receiptsService: ReceiptsService,
     private _modalService: NgbModal,
-    private _activatedRoute: ActivatedRoute,
-    private _receiverService: ReceiptsService
-  ) {}
+    private _transactionService: TransactionsService
+  ) {
+    super();
+  }
   ngOnInit(): void {
     this.getReceipts();
-    this.loadReaceiver();
-    this.generateTransaction();
-  }
-
-  searchReceiver(searchTerm: string) {
-    console.log('search receiver');
+    //this.generateTransaction();
   }
 
   public getReceipts() {
     this._receiptsService.getReceipts().subscribe(
       (data: any) => {
-        console.log('data -->', data);
         this.receiptList = data.receivers;
-        console.log('this.receiptList -->', this.receiptList);
       },
       (error: any) => {
-        console.log(error);
+        throw new Error("error");
+        
       }
     );
   }
 
   openTransferModal(receiver: any, openModal: any) {
     this.receiver = receiver;
-    console.log('receiver -->', receiver);
     this._modalService.open(openModal);
     this.newTransfer.patchValue({
       rut: receiver.rut,
@@ -78,22 +77,28 @@ export class TransferenceComponent implements OnInit {
       account_type: receiver.account_type.account_type,
       amount: receiver.amount,
     });
-    //this.receiptList.push(receiver);
   }
 
-  loadReaceiver() {}
-
-  generateTransaction() {
+  generateTransaction(receiver: any) {
     this.isFormSubmited = true;
     if (this.newTransfer.invalid) {
       return;
     }
-    console.log('generating data-->', this.newTransfer.value);
+    const newTransaction = {
+      receiver: receiver._id,
+      account: receiver.account_type._id,
+      ammount: this.newTransfer.value.amount
+    };
+    this._transactionService
+      .createTransaction(newTransaction)
+      .subscribe((resp) => {
+       this.message = true;
+      }); 
   }
 
   //VALIDATIONS
   invalidFields(): boolean {
-    if (this.newTransfer.get('amount')?.invalid && this.isFormSubmited) {
+    if (this.newTransfer.invalid && this.isFormSubmited) {
       return true;
     } else {
       return false;
