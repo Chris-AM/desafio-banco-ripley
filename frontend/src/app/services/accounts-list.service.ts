@@ -11,14 +11,15 @@ import { environment } from '../../environments/environment';
 export class AccountsListService {
 
   constructor( private _httpClient: HttpClient) { }
+  public baseUrl = _.get(environment, 'BASE_URL');
+  public accountsUrl = _.get(environment, 'ACCOUNT_LIST');
+  public url = this.baseUrl + this.accountsUrl;
 
   getAccounts() {
-    let baseUrl = _.get(environment, 'BASE_URL');
-    let accountsUrl = _.get(environment, 'ACCOUNT_LIST');
-    let url = baseUrl + accountsUrl;
-    console.log(url);
-    return this._httpClient.get(url);
+    return this._httpClient.get(this.url);
   }
-  getAccount(id: number) {
+  getAccount(id: string) {
+    const url = this.url + id;
+    return this._httpClient.get(url);
   }
 }
